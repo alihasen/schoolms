@@ -1,0 +1,3 @@
+./node_modules
+./src/build/bundle.js
+./src/build/bundle.js.map
