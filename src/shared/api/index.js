@@ -10,7 +10,7 @@ export default {
       body = JSON.stringify(body)
     }
 
-    return api.get(
+    return api.post(
       "/login",
       body,
       callback
