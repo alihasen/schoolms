@@ -10,10 +10,13 @@ module.exports = {
   },
   mode: 'development',
   devtool: "source-map",
+  watchOptions: {
+    poll: true
+  },
   module: {
     rules: [
       { test: /\.less$/, loader: "style!css!less" },
-      { test: /\.js$/, loader: "babel-loader", query: { presets: ['es2015', 'react',  'stage-2'] },   exclude: /(disposables)/, },
+      { test: /\.js$/, loader: "babel-loader", query: { presets: ['es2015', 'react', 'stage-2'] }, exclude: /(node_modules|disposables)/, },
       { test: /\.json$/, loader: "json-loader" },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.(png|jpg|GIF)$/, loader: 'url-loader?limit=8192' }

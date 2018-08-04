@@ -9,7 +9,7 @@ const Hello = (data) => (
 )
 
 const mapStateToProps = state => ({
-    body: state.login.data
+    body: state.login.username
 })
 
 
