@@ -11,7 +11,7 @@ export const login = (username, password) => dispatch => {
     api.login(body, response => {
         if(response.data === "success"){
             dispatch(loginSuccess(response.data, username))
-            window.location.hash = "/dashboard";
+            window.location.hash = "/main";
         } else {
             alert("Invalid username/password")
         }

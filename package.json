@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^1.4.0",
+    "@material-ui/icons": "^2.0.1",
     "axios": "^0.18.0",
     "json-loader": "^0.5.7",
     "material-ui": "^0.20.1",
