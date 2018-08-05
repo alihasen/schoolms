@@ -15,5 +15,20 @@ export default {
       body,
       callback
     );
+  },
+
+  addStudent: (body, callback) => {
+     // verify the required parameter 'body' is set
+     if (body == undefined || body == null) {
+      throw "Missing the required parameter 'body' when calling addStudent";
+    }else {
+      body = JSON.stringify(body)
+    }
+
+    return api.post(
+      "/addstudent",
+      body,
+      callback
+    );
   }
 }

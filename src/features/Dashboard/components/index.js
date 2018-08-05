@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,14 +13,15 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import MenuList from './tileData';
+import AddStudent from './AddStudent';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
+    height: "100%",
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -83,7 +85,7 @@ const styles = theme => ({
 
 class Dashboard extends React.Component {
   state = {
-    open: false,
+    open: true,
   };
 
   handleDrawerOpen = () => {
@@ -92,6 +94,10 @@ class Dashboard extends React.Component {
 
   handleDrawerClose = () => {
     this.setState({ open: false });
+  };
+
+  handleAddStudentClick = () => {
+    window.location.hash = "/dashboard/addstudent"
   };
 
   render() {
@@ -130,13 +136,15 @@ class Dashboard extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>{mailFolderListItems}</List>
+          <List>
+            <MenuList handleAddStudentClick={this.handleAddStudentClick} />
+          </List>
           <Divider />
-          <List>{otherMailFolderListItems}</List>
+          <List>{null}</List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Typography>{'You think water moves fast? You should see ice.'}</Typography>
+          <Route path="/dashboard/addstudent" component={AddStudent} />
         </main>
       </div>
     );

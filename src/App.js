@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom'
 const App = ({ store }) => (
     <Provider store={store}>
         <div>
-            <Route exact = {true} path="/" component={Login} />
+            <Route exact={true} path="/" component={Login} />
             <Route path="/dashboard" component={Dashboard} />
         </div>
     </Provider>

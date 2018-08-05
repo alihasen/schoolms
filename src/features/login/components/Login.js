@@ -3,6 +3,11 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -29,25 +34,37 @@ class Login extends React.Component {
 
     render() {
         return (
+
+
             <div>
-                <TextField
-                    label="UserName"
-                    value={this.state.user}
-                    onChange={this.handleUserChange}
-                    margin="normal"
-                />
-                <br />
-                <TextField
-                    label="Password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={this.handlePasswordChange}
-                    margin="normal"
-                />
-                <br />
-                <Button variant="contained" size="large" color="primary" onClick={this.handleSubmitClick}>
-                    Submit
-                </Button>
+                <Dialog
+                    open={true}
+                    onClose={this.handleClose}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <DialogContent>
+                        <TextField
+                            label="User name"
+                            value={this.state.user}
+                            onChange={this.handleUserChange}
+                            margin="normal"
+                        />
+                        <br />
+                        <TextField
+                            label="Password"
+                            type="password"
+                            value={this.state.password}
+                            onChange={this.handlePasswordChange}
+                            margin="normal"
+                        />
+
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="contained" size="large" color="primary" onClick={this.handleSubmitClick}>
+                            Submit
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }

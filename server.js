@@ -39,6 +39,28 @@ app.post('/login', function (req, res) {
     });
 });
 
+app.post('/addstudent', function (req, res) {
+  console.log(JSON.stringify(req.body));
+  console.log("requset recieved");
+  var body = req.body
+  connection.query('INSERT INTO student' +
+  ' (admission_no, registration_no, gender, name, class,' +  
+  'section, dob, mother_name, father_name, guardian_name,'+ 
+  ' resident_address, contact_no) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ',
+   [body.admissionNumber, body.registrationNumber, body.gender, body.name, body.classOfStudent, 
+    body.section, body.dob, body.motherName, 
+    body.fatherName, '', body.address, body.contactNo], (error, results, fields) => {
+      console.log(JSON.stringify(results));
+      if (error) throw error;
+      if (parseInt(results.affectedRows) > 0) {
+        res.send("success");
+      } else {
+        res.send("result is empty");
+      }
+    });
+});
+
+
 app.listen(PORT, IP);
 
 console.log("Running at http://" + IP + ":" + PORT);
