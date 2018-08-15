@@ -3,6 +3,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import { connect } from 'react-redux';
 import { addStudent } from '../actionCreator';
@@ -23,7 +26,8 @@ class AddStudent extends React.Component {
             motherName: "",
             fatherName: "",
             address: "",
-            contactNo: ""
+            contactNo: "",
+            year: ""
         }
     }
 
@@ -65,16 +69,47 @@ class AddStudent extends React.Component {
                     </Grid>
                     <Grid item xs>
                         <TextField
+                            label="Year"
+                            value={this.state.year}
+                            onChange={this.handleChange.bind(this, "year")}
+                        />
+                    </Grid>
+                    <Grid item xs>
+                        <TextField
                             label="Name"
                             value={this.state.name}
                             onChange={this.handleChange.bind(this, "name")}
                         />
                     </Grid>
                     <Grid item xs>
-                        <TextField
-                            label="Class"
+                        <InputLabel htmlFor="age-simple">Class</InputLabel>
+                        <Select
                             value={this.state.classOfStudent}
                             onChange={this.handleChange.bind(this, "classOfStudent")}
+                            inputProps={{
+                                name: 'age',
+                                id: 'age-simple',
+                            }}
+                        >
+                            <MenuItem value={1}>1st</MenuItem>
+                            <MenuItem value={2}>2nd</MenuItem>
+                            <MenuItem value={3}>3rd</MenuItem>
+                            <MenuItem value={4}>4th</MenuItem>
+                            <MenuItem value={5}>5th</MenuItem>
+                            <MenuItem value={6}>6th</MenuItem>
+                            <MenuItem value={7}>7th</MenuItem>
+                            <MenuItem value={8}>8th</MenuItem>
+                            <MenuItem value={9}>9th</MenuItem>
+                            <MenuItem value={10}>10th</MenuItem>
+                            <MenuItem value={11}>11th</MenuItem>
+                            <MenuItem value={12}>12th</MenuItem>
+                        </Select>
+                    </Grid>
+                    <Grid item xs>
+                        <TextField
+                            label="Section"
+                            value={this.state.section}
+                            onChange={this.handleChange.bind(this, "section")}
                         />
                     </Grid>
                     <Grid item xs>
@@ -86,16 +121,13 @@ class AddStudent extends React.Component {
                     </Grid>
                     <Grid item xs>
                         <TextField
-                            label="Section"
-                            value={this.state.section}
-                            onChange={this.handleChange.bind(this, "section")}
-                        />
-                    </Grid>
-                    <Grid item xs>
-                        <TextField
                             label="Date of Birth"
+                            type="date"
                             value={this.state.dob}
                             onChange={this.handleChange.bind(this, "dob")}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                         />
                     </Grid>
                     <Grid item xs>

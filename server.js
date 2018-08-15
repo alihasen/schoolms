@@ -1,7 +1,8 @@
 var express = require("express");
 var app = express();
 var path = require("path");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var session = require('express-session');
 
 app.use(bodyParser.json());
 
@@ -42,22 +43,37 @@ app.post('/login', function (req, res) {
 app.post('/addstudent', function (req, res) {
   console.log(JSON.stringify(req.body));
   console.log("requset recieved");
-  var body = req.body
-  connection.query('INSERT INTO student' +
-  ' (admission_no, registration_no, gender, name, class,' +  
-  'section, dob, mother_name, father_name, guardian_name,'+ 
-  ' resident_address, contact_no) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ',
-   [body.admissionNumber, body.registrationNumber, body.gender, body.name, body.classOfStudent, 
-    body.section, body.dob, body.motherName, 
-    body.fatherName, '', body.address, body.contactNo], (error, results, fields) => {
-      console.log(JSON.stringify(results));
-      if (error) throw error;
-      if (parseInt(results.affectedRows) > 0) {
-        res.send("success");
-      } else {
-        res.send("result is empty");
-      }
-    });
+  var body = req.body;
+
+  connection.query('SELECT * FROM student WHERE admission_no = ?', [body.admissionNumber], (error, results, fields) => {
+    if (results.length < 1) {
+      connection.query('INSERT INTO student' +
+        ' (admission_no, registration_no, gender, name,' +
+        'dob, mother_name, father_name, guardian_name,' +
+        ' resident_address, contact_no) VALUES (?,?,?,?,?,?,?,?,?,?) ',
+        [body.admissionNumber, body.registrationNumber, body.gender, body.name,
+         body.dob, body.motherName, body.fatherName, '', 
+         body.address, body.contactNo], (error, results, fields) => {
+          if (error) console.log(error);
+          if (parseInt(results.affectedRows) > 0) {
+            connection.query('INSERT INTO class' +
+              ' (admission_no, year, class, section) VALUES (?,?,?,?) ',
+              [body.admissionNumber, body.year, body.classOfStudent, body.section], (error, results, fields) => {
+                if (error) console.log(error);
+                if (parseInt(results.affectedRows) > 0) {
+                  res.send("success");
+                } else {
+                  res.send("result is empty");
+                }
+              });
+          } else {
+            res.send("result is empty");
+          }
+        });
+    } else {
+      res.send("student already exists");
+    }
+  });
 });
 
 
